@@ -1,0 +1,120 @@
+import { useRef, useState } from "react";
+
+export const OwnForm = ({ setVisible, setLoading, resultImgRef }) => {
+  const imgContentRef = useRef();
+  const imgStyleRef = useRef();
+  const [disabledSubmit, setDisabledSubmit] = useState(true);
+  const onChangeHandler = (e, id) => {
+    previewImage(e.target, id);
+    checkFiles(imgContentRef.current, imgStyleRef.current);
+  };
+  function previewImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+      preview.style.display = "block";
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "";
+    }
+  }
+
+  const checkFiles = (img1, img2) => {
+    const image1 = img1.files.length;
+    const image2 = img2.files.length;
+
+    if (image1 && image2) {
+      setDisabledSubmit(false);
+    } else {
+      setDisabledSubmit(true);
+    }
+  };
+  const uploadImages = (image1, image2) => {
+    const formData = new FormData();
+
+    if (image1) {
+      formData.append("content", image1);
+    }
+
+    if (image2) {
+      formData.append("style", image2);
+    }
+    setLoading(true);
+    setDisabledSubmit(true);
+    setVisible(false);
+    resultImgRef.current.style.display = "none";
+    fetch("http://127.0.0.1:5000/stylize", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        resultImgRef.current.src = url;
+        resultImgRef.current.style.display = "block";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Ошибка при загрузке изображений.");
+      })
+      .finally(() => {
+        setLoading(false);
+        setDisabledSubmit(false);
+      });
+  };
+  return (
+    <>
+      <h2>Загрузка изображений</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          uploadImages(
+            imgContentRef.current.files[0],
+            imgStyleRef.current.files[0]
+          );
+        }}
+        id="imageForm"
+      >
+        <div className="input-group">
+          <label htmlFor="image1">Контент:</label>
+          <input
+            onChange={(e) => onChangeHandler(e, "preview1")}
+            type="file"
+            id="image1"
+            accept="image/*"
+            ref={imgContentRef}
+          />
+          <img
+            id="preview1"
+            className="preview"
+            alt="Предпросмотр первого изображения"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="image2">Стиль:</label>
+          <input
+            ref={imgStyleRef}
+            onChange={(e) => onChangeHandler(e, "preview2")}
+            type="file"
+            id="image2"
+            accept="image/*"
+          />
+          <img
+            id="preview2"
+            className="preview"
+            alt="Предпросмотр второго изображения"
+          />
+        </div>
+        <button className="btn submit" disabled={disabledSubmit} type="submit">
+          Создать
+        </button>
+      </form>
+    </>
+  );
+};

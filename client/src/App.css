@@ -1,0 +1,166 @@
+* {
+  font-family: "Nunito", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  display: block;
+  background-color: #f4f9ff;
+  margin: 0;
+}
+
+header {
+  padding: 50px 0 0 0;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* height: 100vh; */
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 30px;
+  height: 70%;
+  position: relative;
+}
+
+.result {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+  color: #404756;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input[type="file"]:focus {
+  border-color: #007bff;
+}
+
+.preview {
+  display: none;
+  margin-top: 10px;
+  max-width: 100%;
+  max-height: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.result-img {
+  max-width: max-content;
+  max-height: max-content;
+}
+
+.btn {
+  width: 90%;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 10px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #5a719b;
+  color: #ffffff;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.download {
+  width: 100px;
+}
+
+.btn:hover:not(:disabled) {
+  cursor: pointer;
+  background: #4c6594;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #5a719b;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: none;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.segmented {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5a719b;
+}
+
+.segment {
+  padding: 8px;
+  width: 130px;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.segment:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.segment.active {
+  background-color: #5a719b;
+  color: white;
+}

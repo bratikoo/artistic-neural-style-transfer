@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Форма загрузки изображений</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <header>
+      <h2>✨ Artistic Neural Style Transfer ✨</h2>
+    </header>
+    <div class="app">
+      <div class="container">
+        <div class="flight-types">
+          <input type="radio" name="flight-type" value="coach" id="coach" />
+          <label for="coach">
+              Шаблоны
+          </label>
+          <input type="radio" name="flight-type" value="business" id="business" checked />
+          <label for="business">
+              Свой стиль
+          </label>
+        </div>
+        <h2>Загрузка изображений</h2>
+        <form id="imageForm">
+          <div class="input-group">
+            <label for="image1">Контент:</label>
+            <input type="file" id="image1" accept="image/*" />
+            <img
+              id="preview1"
+              class="preview"
+              alt="Предпросмотр первого изображения"
+            />
+          </div>
+          <div class="input-group">
+            <label for="image2">Стиль:</label>
+            <input type="file" id="image2" accept="image/*" />
+            <img
+              id="preview2"
+              class="preview"
+              alt="Предпросмотр второго изображения"
+            />
+          </div>
+          <button class="submit-btn" disabled type="submit">Создать</button>
+        </form>
+      </div>
+
+      <div class="container result">
+        <h2>Результат</h2>
+        <span class="loader"></span>
+        <span class="prompt"
+          >Выберите 2 изображения и нажмите кнопку "Создать" для генерации
+          результата</span
+        >
+        <img
+          id="resultImg"
+          class="preview result-img"
+          alt="Предпросмотр результата"
+        />
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

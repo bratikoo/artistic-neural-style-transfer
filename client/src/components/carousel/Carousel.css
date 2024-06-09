@@ -1,0 +1,34 @@
+.carousel-container {
+  width: 200px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.carousel-slide {
+  cursor: pointer;
+}
+
+.carousel-photo {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.selected-photo {
+  margin-top: 20px;
+}
+
+.selected-photo img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.slick-track {
+  display: flex;
+  align-items: center;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #5a719b;
+}

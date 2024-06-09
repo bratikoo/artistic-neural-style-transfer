@@ -1,0 +1,8 @@
+@font-face {
+  font-family: Nunito;
+  src: url(./assets/Nunito-Regular.ttf);
+}
+
+#root {
+  height: 100%;
+}
