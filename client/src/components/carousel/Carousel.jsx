@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -26,7 +27,15 @@ const photos = [
   },
 ];
 
-export const Carousel = ({ imgStyleRef }) => {
+export const Carousel = ({ templateRef }) => {
+  const imgRefs = useRef([]);
+
+  if (imgRefs.current.length !== photos.length) {
+    imgRefs.current = Array(photos.length)
+      .fill()
+      .map((_, i) => imgRefs.current[i] || React.createRef());
+  }
+
   const settings = {
     dots: true,
     infinite: true,
@@ -34,15 +43,19 @@ export const Carousel = ({ imgStyleRef }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     className: "center",
+    onInit: () => (templateRef.current = imgRefs.current[0].current),
+    beforeChange: (oldIndex, newIndex) => {
+      templateRef.current = imgRefs.current[newIndex].current;
+    },
   };
 
   return (
     <div className="carousel-container">
       <Slider {...settings}>
-        {photos.map((photo) => (
+        {photos.map((photo, index) => (
           <div key={photo.id} className="carousel-slide">
             <img
-              ref={imgStyleRef}
+              ref={imgRefs.current[index]}
               src={photo.url}
               alt={`Photo ${photo.id}`}
               className="carousel-photo"

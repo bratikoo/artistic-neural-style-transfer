@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Carousel } from "./carousel/Carousel";
 
 export const TemplateForm = ({ setVisible, setLoading, resultImgRef }) => {
-  const imgStyleRef = useRef();
+  const templateRef = useRef();
   const imgContentRef = useRef();
   const [disabledSubmit, setDisabledSubmit] = useState(true);
 
@@ -38,12 +38,12 @@ export const TemplateForm = ({ setVisible, setLoading, resultImgRef }) => {
   };
   const uploadImages = async (content, template) => {
     const imgSrcTempalte = template.src;
+    console.log(imgSrcTempalte);
     const response = await fetch(imgSrcTempalte);
     const blob = await response.blob();
     const file = new File([blob], "style.jpg", { type: blob.type });
     const formData = new FormData();
     formData.append("style", file);
-
     if (content) {
       formData.append("content", content);
     }
@@ -75,11 +75,11 @@ export const TemplateForm = ({ setVisible, setLoading, resultImgRef }) => {
   return (
     <>
       <h2>Выбор шаблона</h2>
-      <Carousel imgStyleRef={imgStyleRef} />
+      <Carousel templateRef={templateRef} />
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          uploadImages(imgContentRef.current.files[0], imgStyleRef.current);
+          uploadImages(imgContentRef.current.files[0], templateRef.current);
         }}
         id="imageForm"
       >

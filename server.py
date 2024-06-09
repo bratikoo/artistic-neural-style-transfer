@@ -100,11 +100,11 @@ def stylize():
                      'conv4_1': 0.2,
                      'conv5_1': 0.2}
 
-    content_weight = 0.7  # alpha
-    style_weight = 1e6  # beta
+    content_weight = 1.4  # alpha
+    style_weight = 1e9  # beta
 
-    optimizer = optim.Adam([target], lr=0.003)
-    steps = 400
+    optimizer = optim.Adam([target], lr=0.01)
+    steps = 100
 
     for ii in range(1, steps + 1):
         target_features = get_features(target, vgg)
@@ -125,7 +125,7 @@ def stylize():
         total_loss.backward()
         optimizer.step()
 
-        if ii % 40 == 0:
+        if ii % 50 == 0:
             print(f'Step {ii}/{steps}, Total loss: {total_loss.item()}')
 
     final_img = im_convert(target)

@@ -36,7 +36,6 @@ function App() {
     link.download = "result.jpg";
     link.click();
   };
-  console.log(resultImgRef.current?.src);
   return (
     <>
       <div className="app">
